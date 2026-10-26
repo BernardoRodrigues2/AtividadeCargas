@@ -123,8 +123,8 @@ const atualizar = async (req, res) => {
         }
 
         if (valores.cpf) {
-            if (valores.cpf !== 11) {
-                return res.status(400).json({ message: 'O Cpf deve conter exatamente 11 caracteres!' })
+            if (valores.cpf.length !== 11) {
+                return res.status(400).json({ message: 'O CPF deve conter exatamente 11 dígitos!' })
             }
 
             dadosAtualizados.cpf = CryptoJs.AES.encrypt(valores.cpf, Key).toString()

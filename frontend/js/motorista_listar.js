@@ -1,0 +1,62 @@
+const token = localStorage.getItem('token')
+
+if (!token) {
+    location.href = '../index.html'
+}
+
+const resposta = document.getElementById('resposta')
+const btn = document.getElementById('btn_listar')
+
+btn.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    fetch('http://localhost:3000/motoristas', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+    })
+        .then(res => res.json())
+        .then(dados => {
+            resposta.innerHTML = `
+                <table>
+                    ${criarThead()}
+                    ${criarTbody(dados)}
+                </table>
+            `
+        })
+        .catch(err => {
+            console.error('Erro ao listar os motoristas:', err)
+            resposta.innerHTML = '<p>Erro ao conectar com o servidor.</p>'
+        })
+})
+
+function criarTbody(dados) {
+    let corpo = '<tbody>'
+    dados.forEach(el => {
+        corpo += `<tr>`
+        corpo += `<td>${el.codMotorista}</td>`
+        corpo += `<td>${el.nome}</td>`
+        corpo += `<td>${el.cnh}</td>`
+        corpo += `<td>${el.cpf}</td>`
+        corpo += `<td>${el.telefone}</td>`
+        corpo += `</tr>`
+    })
+    corpo += `</tbody>`
+    return corpo
+}
+
+function criarThead() {
+    return `
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>CNH</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+            </tr>
+        </thead>
+    `
+}

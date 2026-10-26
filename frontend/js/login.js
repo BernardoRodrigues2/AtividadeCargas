@@ -23,7 +23,7 @@ btn.addEventListener('click', (e) => {
             resposta.innerHTML = `<p>${dados.message}</p>`
             if (dados.token) {
                 localStorage.setItem('token', dados.token)
-                localStorage.setItem('nomeCliente', dados.nome)
+                localStorage.setItem('nomeFuncionario', dados.nome)
                 location.href = '../index.html'
             }
         })
