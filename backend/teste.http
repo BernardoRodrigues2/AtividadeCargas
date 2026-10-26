@@ -1,0 +1,133 @@
+### 1. Verificar se a API está funcionando
+GET http://localhost:3000/
+
+### 2. Cadastrar Funcionário
+POST http://localhost:3000/funcionario
+Content-Type: application/json
+
+{
+    "nome": "Marcos",
+    "email": "marcos@gmail.com",
+    "senha": "789"
+}
+
+### 3. Fazer Login
+# @name loginReq
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "carlos@gmail.com",
+    "senha": "123"
+}
+
+### 4. Listar Motoristas (Privado)
+GET http://localhost:3000/motoristas
+Authorization: {{loginReq.response.body.token}}
+
+### 5. Cadastrar Motorista 1
+POST http://localhost:3000/motorista
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "nome": "Ana",
+    "cnh": "12345678904",
+    "cpf": "12345678915",
+    "telefone": "48999998888"
+}
+
+### 6. Listar Motoristas
+GET http://localhost:3000/motoristas
+Authorization: {{loginReq.response.body.token}}
+
+### 7. Consultar Motoristas
+GET http://localhost:3000/motorista/1
+Authorization: {{loginReq.response.body.token}}
+
+### 8. Consultar Motorista por Nome
+GET http://localhost:3000/motorista/buscarNome/Marcos
+Authorization: {{loginReq.response.body.token}}
+
+### 9. Atualizar Motorista
+PUT http://localhost:3000/motorista/1
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "nome": "Marcos Atualizado",
+    "telefone": "48999990000"
+}
+
+### 10. Cadastrar Carga para o Motorista 1
+POST http://localhost:3000/carga
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "descricao": "Carga de produtos",
+    "peso": 150.50,
+    "volume": 20.00,
+    "codRastreio": 1001,
+    "idMotorista": 1
+}
+
+### 11. Cadastrar Carga para o Motorista 2
+POST http://localhost:3000/carga
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "descricao": "Carga de eletrônicos",
+    "peso": 80.00,
+    "volume": 12.50,
+    "codRastreio": 1002,
+    "idMotorista": 2
+}
+
+### 12. Cadastrar Entrega da Carga 1
+POST http://localhost:3000/entrega
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "cidade": "Florianópolis",
+    "status": "TRANSITO",
+    "data": "2026-10-27",
+    "hora": "14:00:00",
+    "idCarga": 1
+}
+
+### 13. Cadastrar Entrega da Carga 2
+POST http://localhost:3000/entrega
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "cidade": "Tijucas",
+    "status": "ENTREGUE",
+    "data": "2026-10-28",
+    "hora": "10:30:00",
+    "idCarga": 2
+}
+
+### 14. Cadastrar Entrega da Carga 3
+POST http://localhost:3000/entrega
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "cidade": "Itapema",
+    "status": "ENTREGUE",
+    "data": "2026-10-29",
+    "hora": "10:30:00",
+    "idCarga": 3
+}
+
+### 15. Listar Entregas
+GET http://localhost:3000/entregas
+Authorization: {{loginReq.response.body.token}}
+
+### 16. Deletar Motorista 2
+DELETE http://localhost:3000/motorista/5
+Authorization: {{loginReq.response.body.token}}
